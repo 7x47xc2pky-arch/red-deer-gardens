@@ -823,11 +823,49 @@
       .hero-actions { flex-direction: column; }
       .hero-actions .btn-ghost { text-align: center; }
       .cta-buttons { flex-direction: column; align-items: center; }
+      /* ═══ SPLASH ═══ */
+.splash {
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: all;
+}
+.splash-panel {
+  position: absolute; top: 0; bottom: 0;
+  width: 50.5%;
+  background: #022018;
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+.splash-left  { left: 0; }
+.splash-right { right: 0; }
+.splash-logo {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  width: min(300px, 68vw);
+  opacity: 0;
+  animation: splashIn 0.5s 0.15s ease forwards;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.splash-logo img { width: 100%; display: block; }
+.splash.open .splash-left  { transform: translateX(-101%); }
+.splash.open .splash-right { transform: translateX(101%); }
+.splash.done { display: none; }
+@keyframes splashIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
     }
   </style>
 </head>
 <body>
-
+<div class="splash" id="splash">
+  <div class="splash-panel splash-left"></div>
+  <div class="splash-panel splash-right"></div>
+</div>
+<div class="splash-logo" id="splashLogo">
+  <img src="./RDGlogo.png" alt="Red Deer Gardens"/>
+</div>
 <div id="scrollProgress"></div>
 
 <!-- MOBILE MENU DRAWER -->
@@ -1274,6 +1312,21 @@
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
   ioEls.forEach(el => io.observe(el));
+  /* ── SPLASH ── */
+(function() {
+  const splash = document.getElementById('splash');
+  const logo   = document.getElementById('splashLogo');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    splash.classList.add('open');
+    logo.style.opacity = '0';
+  }, 1100);
+  setTimeout(function() {
+    splash.classList.add('done');
+    logo.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 1950);
+})();
 </script>
 </body>
 </html>
