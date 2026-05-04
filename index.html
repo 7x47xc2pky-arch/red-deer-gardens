@@ -834,7 +834,7 @@
 .splash-panel {
   position: absolute; top: 0; bottom: 0;
   width: 50.5%; background: #022018;
-  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform; z-index: 1;
 }
 .splash-left  { left: 0; }
@@ -1313,19 +1313,18 @@
   ioEls.forEach(el => io.observe(el));
 
   /* ── SPLASH ── */
-  (function() {
+(function() {
     var splash = document.getElementById('splash');
     document.body.style.overflow = 'hidden';
     setTimeout(function() { splash.classList.add('logo-in'); }, 150);
     setTimeout(function() {
-      splash.classList.remove('logo-in');
       splash.classList.add('logo-out');
-    }, 1050);
-    setTimeout(function() { splash.classList.add('gate-open'); }, 1300);
+      splash.classList.add('gate-open');
+    }, 1100);
     setTimeout(function() {
       splash.classList.add('done');
       document.body.style.overflow = '';
-    }, 2200);
+    }, 1950);
   })();
 </script>
 </body>
