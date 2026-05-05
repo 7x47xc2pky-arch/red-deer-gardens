@@ -855,18 +855,35 @@
 
 /* Hero animations paused until splash clears */
 .hero-title-line,
-.hero-eyebrow,
-.hero-desc,
-.hero-actions,
-.hero-scroll {
+.hero-actions {
   animation-play-state: paused;
 }
 body.hero-ready .hero-title-line,
-body.hero-ready .hero-eyebrow,
-body.hero-ready .hero-desc,
-body.hero-ready .hero-actions,
-body.hero-ready .hero-scroll {
+body.hero-ready .hero-actions {
   animation-play-state: running;
+}
+
+/* Eyebrow, desc and scroll — static, no animation */
+.hero-eyebrow {
+  opacity: 1; transform: none; animation: none;
+}
+.hero-desc {
+  opacity: 1; transform: none; animation: none;
+}
+.hero-scroll {
+  opacity: 1; animation: none;
+}
+
+/* Title lines all animate in together */
+.hero-title-line {
+  animation-delay: 0s !important;
+  animation-duration: 0.8s !important;
+}
+
+/* CTA buttons same timing as title */
+.hero-actions {
+  animation-delay: 0s !important;
+  animation-duration: 0.8s !important;
 }
 
   </style>
