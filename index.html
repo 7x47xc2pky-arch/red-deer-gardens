@@ -854,12 +854,11 @@
 .splash.gate-open .splash-right { transform: translateX(101%); }
 .splash.done { display: none; }
 
-/* Eyebrow — always visible, no animation */
+/* Eyebrow — static, no animation */
 .hero-eyebrow {
   display: flex; align-items: center; gap: 1rem;
   margin-bottom: 2.5rem;
-  opacity: 1; transform: none;
-  animation: none;
+  opacity: 1; transform: none; animation: none;
 }
 
 /* Title lines, desc, actions, scroll — paused until splash clears */
@@ -870,7 +869,7 @@
   animation-play-state: paused;
 }
 
-/* desc and actions share identical delay — animate together */
+/* Trigger all on splash clear */
 body.hero-ready .hero-title-line,
 body.hero-ready .hero-desc,
 body.hero-ready .hero-actions,
@@ -878,11 +877,13 @@ body.hero-ready .hero-scroll {
   animation-play-state: running;
 }
 
-/* Override actions delay to match desc exactly */
-body.hero-ready .hero-actions {
-  animation-delay: 1.0s;
-}
-
+/* Tightened delays — no pause after splash */
+body.hero-ready .hero-title-line:nth-child(1) { animation-delay: 0.05s; }
+body.hero-ready .hero-title-line:nth-child(2) { animation-delay: 0.2s; }
+body.hero-ready .hero-title-line:nth-child(3) { animation-delay: 0.35s; }
+body.hero-ready .hero-desc                    { animation-delay: 0.5s; }
+body.hero-ready .hero-actions                 { animation-delay: 0.5s; }
+body.hero-ready .hero-scroll                  { animation-delay: 0.7s; }
   </style>
 </head>
 <body>
