@@ -829,12 +829,11 @@
 .splash {
   position: fixed; inset: 0;
   z-index: 9999; pointer-events: all;
-  background: #022018;
 }
 .splash-panel {
   position: absolute; top: 0; bottom: 0;
-  width: 50.5%; background: #022018;
-  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  width: 51%; background: #022018;
+  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform; z-index: 1;
 }
 .splash-left  { left: 0; }
@@ -853,6 +852,22 @@
 .splash.gate-open .splash-left  { transform: translateX(-101%); }
 .splash.gate-open .splash-right { transform: translateX(101%); }
 .splash.done { display: none; }
+
+/* Hero animations paused until splash clears */
+.hero-title-line,
+.hero-eyebrow,
+.hero-desc,
+.hero-actions,
+.hero-scroll {
+  animation-play-state: paused;
+}
+body.hero-ready .hero-title-line,
+body.hero-ready .hero-eyebrow,
+body.hero-ready .hero-desc,
+body.hero-ready .hero-actions,
+body.hero-ready .hero-scroll {
+  animation-play-state: running;
+}
 
   </style>
 </head>
@@ -1312,20 +1327,29 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
   ioEls.forEach(el => io.observe(el));
 
-  /* ── SPLASH ── */
+/* ── SPLASH ── */
 (function() {
-    var splash = document.getElementById('splash');
-    document.body.style.overflow = 'hidden';
-    setTimeout(function() { splash.classList.add('logo-in'); }, 150);
-    setTimeout(function() {
-      splash.classList.add('logo-out');
-      splash.classList.add('gate-open');
-    }, 1100);
-    setTimeout(function() {
-      splash.classList.add('done');
-      document.body.style.overflow = '';
-    }, 1950);
-  })();
+  var splash = document.getElementById('splash');
+  document.body.style.overflow = 'hidden';
+
+  // Logo fades in
+  setTimeout(function() {
+    splash.classList.add('logo-in');
+  }, 150);
+
+  // Logo fades out + gate opens simultaneously
+  setTimeout(function() {
+    splash.classList.add('logo-out');
+    splash.classList.add('gate-open');
+  }, 1100);
+
+  // Splash removed + hero animations triggered
+  setTimeout(function() {
+    splash.classList.add('done');
+    document.body.style.overflow = '';
+    document.body.classList.add('hero-ready');
+  }, 1800);
+})();
 </script>
 </body>
 </html>
